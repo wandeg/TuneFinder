@@ -4,8 +4,8 @@ import pymongo
 class Tunefind:
 	"""docstring for Tunefind"""
 	def __init__(self):
-		self.conn=pymongo.Connection('localhost',27017)
-		self.db=self.conn.tunefind
+		#self.conn=pymongo.Connection('localhost',27017) #not yet implemented but will be once all the data is collected
+		#self.db=self.conn.tunefind
 		self.user=''
 		self.passw=''
 		self.tv_base_url='https://www.tunefind.com/api/v1/show'
@@ -18,9 +18,10 @@ class Tunefind:
 		else:
 			r=requests.get(url)
 		if r.status_code==200:
-			response=r.json()
-			if response.has_key(key):
-				res=response[key]
+			res=r.json()
+			if key:
+			    if res.has_key(key):
+				    res=response[key]
 		return res
 		
 	def fetch_shows(self):
@@ -62,7 +63,7 @@ class Tunefind:
 			songs_list.append(res)
 		return songs_list
 
-	def get_genre(song_id):
+	def get_genre(self,song_id):
 		itunes_lookup_base="https://itunes.apple.com/lookup"
 		params='?id='+song_id
 		url=itunes_lookup_base+params
