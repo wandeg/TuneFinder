@@ -37,8 +37,8 @@ class Tunefind:
 		seasons_list=self.fetch(url,self.user,self.passw,key='seasons')
 		return seasons_list
 
-	def fetch_season(self,seasons_list):
-		assert isinstance(seasons_list,list)
+	#def fetch_season(self,seasons_list):
+		#assert isinstance(seasons_list,list)
 
 
 	def fetch_episodes(self,seasons_list):
@@ -74,6 +74,8 @@ class Tunefind:
 
 
 # tf=Tunefind()
+# tf.user='' #insert api username here
+# tf.passw='' #insert api password here
 # shows=tf.fetch_shows(tf.tv_base_url,tf.user,tf.passw)
 # show_sns=map(tf.fetch_seasons,shows)
 # show_names=[show['name'] for show in shows]
