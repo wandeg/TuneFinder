@@ -9,12 +9,13 @@ class Tunefind:
 		self.user=''
 		self.passw=''
 		self.tv_base_url='https://www.tunefind.com/api/v1/show'
-		
+		self.movie_base_url='https://www.tunefind.com/api/v1/movie'
+		self.artists_base_url='https://www.tunefind.com/api/v1/artist'
 
 	def fetch(self,url,user=None,passw=None,key=None):
 		res=None
 		if user and passw:
-			r=requests.get(url, auth=(user,passw), verify=False)
+			r=requests.get(url, auth=(user,passw), verify=False) #verify is set to False because of tunefind's SSL issues
 		else:
 			r=requests.get(url)
 		if r.status_code==200:
