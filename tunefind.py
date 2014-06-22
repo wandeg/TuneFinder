@@ -4,17 +4,18 @@ import pymongo
 class Tunefind:
 	"""docstring for Tunefind"""
 	def __init__(self):
-		self.conn=pymongo.Connection('localhost',27017)
-		self.db=self.conn.tunefind
+		#self.conn=pymongo.Connection('localhost',27017) #not yet implemented but will be once all the data is collected
+		#self.db=self.conn.tunefind
 		self.user=''
 		self.passw=''
 		self.tv_base_url='https://www.tunefind.com/api/v1/show'
-		
+		self.movie_base_url='https://www.tunefind.com/api/v1/movie'
+		self.artists_base_url='https://www.tunefind.com/api/v1/artist'
 
 	def fetch(self,url,user=None,passw=None,key=None):
 		res=None
 		if user and passw:
-			r=requests.get(url, auth=(user,passw), verify=False)
+			r=requests.get(url, auth=(user,passw), verify=False) #verify is set to False because of tunefind's SSL issues
 		else:
 			r=requests.get(url)
 		if r.status_code==200:
@@ -36,8 +37,8 @@ class Tunefind:
 		seasons_list=self.fetch(url,self.user,self.passw,key='seasons')
 		return seasons_list
 
-	def fetch_season(self,seasons_list):
-		assert isinstance(seasons_list,list)
+	#def fetch_season(self,seasons_list):
+		#assert isinstance(seasons_list,list)
 
 
 	def fetch_episodes(self,seasons_list):
@@ -77,6 +78,8 @@ class Tunefind:
 
 
 # tf=Tunefind()
+# tf.user='' #insert api username here
+# tf.passw='' #insert api password here
 # shows=tf.fetch_shows(tf.tv_base_url,tf.user,tf.passw)
 # show_sns=map(tf.fetch_seasons,shows)
 # show_names=[show['name'] for show in shows]
