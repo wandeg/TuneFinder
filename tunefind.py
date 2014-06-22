@@ -18,9 +18,10 @@ class Tunefind:
 		else:
 			r=requests.get(url)
 		if r.status_code==200:
-			response=r.json()
-			if response.has_key(key):
-				res=response[key]
+			res=r.json()
+			if key:
+			    if res.has_key(key):
+				    res=res[key]
 		return res
 		
 	def fetch_shows(self):
@@ -57,12 +58,16 @@ class Tunefind:
 		songs_list=[]
 		for episode in episodes_list:
 			assert isinstance(episode,dict)
-			url=episode['tunefind_api_url']
-			res=self.fetch(url,self.user,self.passw,key='songs')
-			songs_list.append(res)
+			if str(episode['song_count']) >0:
+			    url=episode['tunefind_api_url']
+			    try:
+			        res=self.fetch(url,self.user,self.passw,key='songs')
+			        songs_list.append(res)
+			    except:
+			        pass
 		return songs_list
 
-	def get_genre(song_id):
+	def get_genre(self,song_id):
 		itunes_lookup_base="https://itunes.apple.com/lookup"
 		params='?id='+song_id
 		url=itunes_lookup_base+params
